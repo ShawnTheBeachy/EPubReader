@@ -1,5 +1,5 @@
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 
 namespace ePubReader.Views
 {
@@ -10,7 +10,7 @@ namespace ePubReader.Views
             InitializeComponent();
         }
 
-        private void ePubItemRightTapped(object sender, RightTappedRoutedEventArgs e) =>
-            ePubMenuFlyout.ShowAt(ePubGridView);
+        private void ePubItemRightTapped(object sender, RoutedEventArgs e) =>
+            ePubMenuFlyout.ShowAt(sender as Grid);
     }
 }

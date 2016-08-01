@@ -92,6 +92,9 @@ namespace ePubReader.Controllers
                 var opfFile = await StorageFile.GetFileFromPathAsync(opfPath);
                 #endregion Get OPF file
 
+                var tocFile = await StorageFile.GetFileFromPathAsync($"{newEPub.RootFolderPath}\\toc.ncx");
+                var jToc = EPubToJsonConverter.TableOfContentsConverter.TableOfContentsToJson(await FileIO.ReadTextAsync(tocFile));
+
                 #region Get OPF XDoc
                 var opfXml = await FileIO.ReadTextAsync(opfFile);
                 var opfXDoc = XDocument.Parse(opfXml);
@@ -124,7 +127,7 @@ namespace ePubReader.Controllers
                                   select xml.ReadInnerXml()).ToList();
                 newEPub.CoverId = (from xml in metadataNode.Descendants(opfNamespace + "meta")
                                    where xml.Attribute("name") != null && xml.Attribute("name").Value == "cover"
-                                   select xml).FirstOrDefault().Attribute("content").Value;
+                                   select xml).FirstOrDefault()?.Attribute("content").Value;
 
                 var newMetadata = new Metadata
                 {
@@ -201,9 +204,13 @@ namespace ePubReader.Controllers
 
                 #region Get cover stream
                 var coverManifestItem = newEPub.Manifest.Find(a => a.Id == newEPub.CoverId);
-                var coverPath = $"{newEPub.RootFolderPath}\\{coverManifestItem.Href.Replace('/', '\\')}";
-                var coverFile = await StorageFile.GetFileFromPathAsync(coverPath);
-                newEPub.CoverStream = await coverFile.OpenReadAsync();
+
+                if (coverManifestItem != null)
+                {
+                    var coverPath = $"{newEPub.RootFolderPath}\\{coverManifestItem.Href.Replace('/', '\\')}";
+                    var coverFile = await StorageFile.GetFileFromPathAsync(coverPath);
+                    newEPub.CoverStream = await coverFile.OpenReadAsync();
+                }
                 #endregion Get cover stream
 
                 returnEPubs.Add(newEPub);

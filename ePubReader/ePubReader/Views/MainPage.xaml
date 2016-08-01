@@ -46,8 +46,9 @@
                 <DataTemplate x:DataType="models:ePub">
                     <Grid Height="204"
                           Width="132"
-                          Background="Transparent"
-                          RightTapped="ePubItemRightTapped">
+                          Background="#CCC"
+                          RightTapped="ePubItemRightTapped"
+                          Holding="ePubItemRightTapped">
                         <Interactivity:Interaction.Behaviors>
                             <comppro:FluidPointerDragBehavior DragButton="MouseLeftButton"/>
                         </Interactivity:Interaction.Behaviors>
