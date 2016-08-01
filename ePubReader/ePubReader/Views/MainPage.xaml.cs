@@ -10,7 +10,7 @@ namespace ePubReader.Views
             InitializeComponent();
         }
 
-        private void ePubItemRightTapped(object sender, RoutedEventArgs e) =>
+        public void ePubItemRightTapped(object sender, RoutedEventArgs e) =>
             ePubMenuFlyout.ShowAt(sender as Grid);
     }
 }

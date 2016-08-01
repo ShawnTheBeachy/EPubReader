@@ -11,7 +11,9 @@
       xmlns:local="using:ePubReader.Views"
       xmlns:comppro="using:CompositionProToolkit.Controls"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:vm="using:ePubReader.ViewModels" mc:Ignorable="d"
+      xmlns:vm="using:ePubReader.ViewModels"
+      xmlns:localControls="using:ePubReader.Controls"
+      mc:Ignorable="d"
       NavigationCacheMode="Enabled">
 
     <Page.Resources>
@@ -38,39 +40,30 @@
             </controls:PageHeader.PrimaryCommands>
         </controls:PageHeader>
 
-        <ItemsControl Grid.Row="1"
-                  ItemsSource="{Binding ImportedEPubs, Mode=TwoWay}"
-                  Margin="12"
-                  x:Name="ePubGridView">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate x:DataType="models:ePub">
-                    <Grid Height="204"
-                          Width="132"
-                          Background="#CCC"
-                          RightTapped="ePubItemRightTapped"
-                          Holding="ePubItemRightTapped">
-                        <Interactivity:Interaction.Behaviors>
-                            <comppro:FluidPointerDragBehavior DragButton="MouseLeftButton"/>
-                        </Interactivity:Interaction.Behaviors>
-                        <Image Source="{x:Bind CoverStream, Converter={StaticResource RasToImageSourceConverter}, Mode=OneWay}"
-                               Stretch="UniformToFill"/>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
+        <localControls:EPubItemsControl Grid.Row="1"
+                                        ItemsSource="{Binding ImportedEPubs, Mode=TwoWay}"
+                                        Margin="12"
+                                        x:Name="ePubGridView">    
+            <localControls:EPubItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <comppro:FluidWrapPanel IsComposing="True"
                                             ItemHeight="204"
                                             ItemWidth="144"/>
                 </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+            </localControls:EPubItemsControl.ItemsPanel>
             <FlyoutBase.AttachedFlyout>
                 <MenuFlyout x:Name="ePubMenuFlyout">
                     <MenuFlyoutItem Text="Change cover"
                                     Click="{x:Bind ViewModel.ChangeCoverMenuItemClick}"/>
                 </MenuFlyout>
             </FlyoutBase.AttachedFlyout>
-        </ItemsControl>
+        </localControls:EPubItemsControl>
     </Grid>
 </Page>
+
+
+
+
+
+
 
