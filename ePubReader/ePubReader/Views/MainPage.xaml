@@ -1,0 +1,75 @@
+<Page x:Class="ePubReader.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:Behaviors="using:Template10.Behaviors"
+      xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:controls="using:Template10.Controls"
+      xmlns:converters="using:ePubReader.Converters"
+      xmlns:models="using:ePubReader.Models"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:ePubReader.Views"
+      xmlns:comppro="using:CompositionProToolkit.Controls"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:vm="using:ePubReader.ViewModels" mc:Ignorable="d"
+      NavigationCacheMode="Enabled">
+
+    <Page.Resources>
+        <converters:RasToImageSourceConverter x:Key="RasToImageSourceConverter"/>
+    </Page.Resources>
+
+    <Page.DataContext>
+        <vm:MainPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <controls:PageHeader Grid.Row="0"
+                             Text="HOME"
+                             RequestedTheme="Dark">
+            <controls:PageHeader.PrimaryCommands>
+                <AppBarButton Icon="OpenFile"
+                              Label="Open ePub"
+                              Click="{x:Bind ViewModel.OpenEPubButtonClick}"/>
+            </controls:PageHeader.PrimaryCommands>
+        </controls:PageHeader>
+
+        <ItemsControl Grid.Row="1"
+                  ItemsSource="{Binding ImportedEPubs, Mode=TwoWay}"
+                  Margin="12"
+                  x:Name="ePubGridView">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="models:ePub">
+                    <Grid Height="204"
+                          Width="132"
+                          Background="Transparent"
+                          RightTapped="ePubItemRightTapped">
+                        <Interactivity:Interaction.Behaviors>
+                            <comppro:FluidPointerDragBehavior DragButton="MouseLeftButton"/>
+                        </Interactivity:Interaction.Behaviors>
+                        <Image Source="{x:Bind CoverStream, Converter={StaticResource RasToImageSourceConverter}, Mode=OneWay}"
+                               Stretch="UniformToFill"/>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <comppro:FluidWrapPanel IsComposing="True"
+                                            ItemHeight="204"
+                                            ItemWidth="144"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <FlyoutBase.AttachedFlyout>
+                <MenuFlyout x:Name="ePubMenuFlyout">
+                    <MenuFlyoutItem Text="Change cover"
+                                    Click="{x:Bind ViewModel.ChangeCoverMenuItemClick}"/>
+                </MenuFlyout>
+            </FlyoutBase.AttachedFlyout>
+        </ItemsControl>
+    </Grid>
+</Page>
+
