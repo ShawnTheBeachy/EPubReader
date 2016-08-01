@@ -9,8 +9,9 @@ namespace ePubReader.Views
         {
             InitializeComponent();
         }
-
-        private void ePubItemRightTapped(object sender, RightTappedRoutedEventArgs e) =>
+        public void HandleRightTap(object sender, RightTappedRoutedEventArgs e)
+        {
             ePubMenuFlyout.ShowAt(ePubGridView);
+        }
     }
 }
