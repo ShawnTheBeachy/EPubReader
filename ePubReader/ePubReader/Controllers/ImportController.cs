@@ -54,8 +54,15 @@ namespace ePubReader.Controllers
         public static async Task<IEnumerable<ePub>> GetImportedEPubsAsync()
         {
             var returnEPubs = new List<ePub>();
-            var ePubsFolder = await ApplicationData.Current.LocalFolder.GetFolderAsync("ePubs");
-            var ePubs = await ePubsFolder.GetFoldersAsync();
+
+            StorageFolder ePubDirectory;
+
+            ePubDirectory = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("ePubs");
+
+            if (ePubDirectory == null)
+                ePubDirectory = await ApplicationData.Current.LocalFolder.CreateFolderAsync("ePubs");
+
+            var ePubs = await ePubDirectory.GetFoldersAsync();
 
             foreach (var ePub in ePubs)
             {
