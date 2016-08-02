@@ -104,6 +104,7 @@
     </Compile>
     <Compile Include="Controls\EPubItemsControl.cs" />
     <Compile Include="Converters\RasToImageSourceConverter.cs" />
+    <Compile Include="Models\BaseNotify.cs" />
     <Compile Include="Models\ePub.cs" />
     <Compile Include="Models\ManifestItem.cs" />
     <Compile Include="Models\Metadata.cs" />

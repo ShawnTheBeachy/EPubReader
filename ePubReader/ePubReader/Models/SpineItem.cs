@@ -1,7 +1,12 @@
 ﻿namespace ePubReader.Models
 {
-    public class SpineItem
+    public class SpineItem : BaseNotify
     {
-        public string IdRef { get; set; }
+        private string _idRef;
+        public string IdRefz
+        {
+            get { return _idRef; }
+            set { _idRef = value;  RaisePropertyChanged("IdRef"); }
+        }
     }
 }
