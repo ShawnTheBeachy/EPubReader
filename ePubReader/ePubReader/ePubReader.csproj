@@ -177,16 +177,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\GitHub\CompositionProToolkit\CompositionProToolkit\CompositionProToolkit.csproj">
-      <Project>{9300e54c-338c-4ad7-baac-bcbd32a660cf}</Project>
-      <Name>CompositionProToolkit</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EPubToJsonConverter\EPubToJsonConverter.csproj">
-      <Project>{c946b06a-bfbb-44db-a5b1-8154201b398b}</Project>
-      <Name>EPubToJsonConverter</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

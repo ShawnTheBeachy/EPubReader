@@ -27,12 +27,7 @@ namespace ePubReader.Controllers
 
                 if (files.Count > 0)
                 {
-                    StorageFolder ePubDirectory;
-
-                    ePubDirectory = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("ePubs");
-
-                    if (ePubDirectory == null)
-                        ePubDirectory = await ApplicationData.Current.LocalFolder.CreateFolderAsync("ePubs");
+                    var ePubDirectory = await ApplicationData.Current.RoamingFolder.GetFolderAsync("ePubs");
 
                     foreach (var file in files)
                     {
@@ -57,10 +52,10 @@ namespace ePubReader.Controllers
 
             StorageFolder ePubDirectory;
 
-            ePubDirectory = (StorageFolder)await ApplicationData.Current.LocalFolder.TryGetItemAsync("ePubs");
+            ePubDirectory = (StorageFolder)await ApplicationData.Current.RoamingFolder.TryGetItemAsync("ePubs");
 
             if (ePubDirectory == null)
-                ePubDirectory = await ApplicationData.Current.LocalFolder.CreateFolderAsync("ePubs");
+                ePubDirectory = await ApplicationData.Current.RoamingFolder.CreateFolderAsync("ePubs");
 
             var ePubs = await ePubDirectory.GetFoldersAsync();
 
@@ -91,10 +86,7 @@ namespace ePubReader.Controllers
                 var opfPath = $"{ePub.Path}\\{rootReplaced}";
                 var opfFile = await StorageFile.GetFileFromPathAsync(opfPath);
                 #endregion Get OPF file
-
-                var tocFile = await StorageFile.GetFileFromPathAsync($"{newEPub.RootFolderPath}\\toc.ncx");
-                var jToc = EPubToJsonConverter.TableOfContentsConverter.TableOfContentsToJson(await FileIO.ReadTextAsync(tocFile));
-
+                
                 #region Get OPF XDoc
                 var opfXml = await FileIO.ReadTextAsync(opfFile);
                 var opfXDoc = XDocument.Parse(opfXml);

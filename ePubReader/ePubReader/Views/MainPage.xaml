@@ -47,7 +47,7 @@
             <localControls:EPubItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <comppro:FluidWrapPanel IsComposing="True"
-                                            ItemHeight="204"
+                                            ItemHeight="216"
                                             ItemWidth="144"/>
                 </ItemsPanelTemplate>
             </localControls:EPubItemsControl.ItemsPanel>
