@@ -4,20 +4,20 @@
       xmlns:Behaviors="using:Template10.Behaviors"
       xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
       xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:comppro="using:CompositionProToolkit.Controls"
       xmlns:controls="using:Template10.Controls"
       xmlns:converters="using:ePubReader.Converters"
-      xmlns:models="using:ePubReader.Models"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:ePubReader.Views"
-      xmlns:comppro="using:CompositionProToolkit.Controls"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:vm="using:ePubReader.ViewModels"
       xmlns:localControls="using:ePubReader.Controls"
-      mc:Ignorable="d"
-      NavigationCacheMode="Enabled">
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:models="using:ePubReader.Models"
+      xmlns:vm="using:ePubReader.ViewModels"
+      NavigationCacheMode="Enabled"
+      mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:RasToImageSourceConverter x:Key="RasToImageSourceConverter"/>
+        <converters:RasToImageSourceConverter x:Key="RasToImageSourceConverter" />
     </Page.Resources>
 
     <Page.DataContext>
@@ -26,46 +26,58 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
         <controls:PageHeader Grid.Row="0"
-                             Text="HOME"
-                             RequestedTheme="Dark">
+                             RequestedTheme="Dark"
+                             Text="HOME">
             <controls:PageHeader.PrimaryCommands>
-                <AppBarButton Icon="OpenFile"
-                              Label="Open ePub"
-                              Click="{x:Bind ViewModel.OpenEPubButtonClick}"/>
+                <AppBarButton Click="{x:Bind ViewModel.AddButtonClick}"
+                              Icon="Add"
+                              Label="Open ePub" />
             </controls:PageHeader.PrimaryCommands>
         </controls:PageHeader>
 
-        <ScrollViewer VerticalScrollMode="Enabled"
-                      Grid.Row="1">
-            <localControls:EPubItemsControl Grid.Row="1"
-                                        ItemsSource="{Binding ImportedEPubs, Mode=TwoWay}"
-                                        Margin="12">
-                <localControls:EPubItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <comppro:FluidWrapPanel IsComposing="True"
-                                            ItemHeight="216"
-                                            ItemWidth="144"/>
-                    </ItemsPanelTemplate>
-                </localControls:EPubItemsControl.ItemsPanel>
-                <FlyoutBase.AttachedFlyout>
-                    <MenuFlyout x:Name="ePubMenuFlyout">
-                        <MenuFlyoutItem Text="Change cover"
-                                    Click="{x:Bind ViewModel.ChangeCoverMenuItemClick}"/>
-                    </MenuFlyout>
-                </FlyoutBase.AttachedFlyout>
-            </localControls:EPubItemsControl>
-        </ScrollViewer>
+        <Pivot Grid.Row="1" SelectedIndex="{x:Bind ViewModel.SelectedPivotIndex, Mode=TwoWay}">
+            <PivotItem Header="LIBRARY">
+                <ScrollViewer VerticalScrollMode="Enabled">
+                    <localControls:EPubItemsControl Grid.Row="1"
+                                                    Margin="12"
+                                                    ItemsSource="{Binding Library,
+                                                                          Mode=TwoWay}">
+                        <localControls:EPubItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <comppro:FluidWrapPanel IsComposing="True"
+                                                        ItemHeight="216"
+                                                        ItemWidth="144" />
+                            </ItemsPanelTemplate>
+                        </localControls:EPubItemsControl.ItemsPanel>
+                        <FlyoutBase.AttachedFlyout>
+                            <MenuFlyout x:Name="ePubMenuFlyout">
+                                <MenuFlyoutItem Click="{x:Bind ViewModel.ChangeCoverMenuItemClick}" Text="Change cover" />
+                            </MenuFlyout>
+                        </FlyoutBase.AttachedFlyout>
+                    </localControls:EPubItemsControl>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem Header="COLLECTIONS">
+                <ScrollViewer VerticalScrollMode="Enabled">
+                    <localControls:CollectionItemsControl Grid.Row="1"
+                                                          Margin="12"
+                                                          ItemsSource="{Binding Collections,
+                                                                                Mode=TwoWay}">
+                        <localControls:CollectionItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <comppro:FluidWrapPanel IsComposing="True"
+                                                        ItemHeight="216"
+                                                        ItemWidth="156" />
+                            </ItemsPanelTemplate>
+                        </localControls:CollectionItemsControl.ItemsPanel>
+                    </localControls:CollectionItemsControl>
+                </ScrollViewer>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>
-
-
-
-
-
-
-

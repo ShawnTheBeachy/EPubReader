@@ -99,17 +99,24 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ImportController.cs" />
+    <Compile Include="Controllers\ViewModelController.cs" />
+    <Compile Include="Controls\CollectionItemContainer.xaml.cs">
+      <DependentUpon>CollectionItemContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CollectionItemsControl.cs" />
     <Compile Include="Controls\EPubItemContainer.xaml.cs">
       <DependentUpon>EPubItemContainer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EPubItemsControl.cs" />
     <Compile Include="Converters\RasToImageSourceConverter.cs" />
     <Compile Include="Models\BaseNotify.cs" />
+    <Compile Include="Models\Collection.cs" />
     <Compile Include="Models\ePub.cs" />
     <Compile Include="Models\ManifestItem.cs" />
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\Spine.cs" />
     <Compile Include="Models\SpineItem.cs" />
+    <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SettingsServices\SettingsService.cs" />
     <Compile Include="Services\XmlHelpers.cs" />
@@ -151,6 +158,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\CollectionItemContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\EPubItemContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -7,26 +7,27 @@ using Windows.UI.Xaml;
 using MyToolkit.Collections;
 using ePubReader.Models;
 using Windows.UI.Xaml.Controls;
-using ePubReader.Views;
-using Windows.UI.Input;
-using Windows.UI.Xaml.Input;
+using ePubReader.Controllers;
+using System;
 
 namespace ePubReader.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        MtObservableCollection<ePub> _importedEPubs { get; set; }
-        public ObservableCollectionView<ePub> ImportedEPubs { get; set; }
+        public ObservableCollectionView<ePub> Library { get; set; }
+        public ObservableCollectionView<Collection> Collections { get; set; }
+
+        private int _selectedPivotIndex;
+        public int SelectedPivotIndex { get { return _selectedPivotIndex; } set { Set(ref _selectedPivotIndex, value); } }
 
         public MainPageViewModel()
         {
-            _importedEPubs = new MtObservableCollection<ePub>();
-            ImportedEPubs = new ObservableCollectionView<ePub>(_importedEPubs);
+            Library = new ObservableCollectionView<ePub>(ViewModel.EPubs);
+            Collections = new ObservableCollectionView<Collection>(ViewModel.Collections);
         }
         
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> suspensionState)
         {
-            _importedEPubs.AddRange(await Controllers.ImportController.GetImportedEPubsAsync());
             await Task.CompletedTask;
         }
 
@@ -41,17 +42,20 @@ namespace ePubReader.ViewModels
             await Task.CompletedTask;
         }
 
-        public async void OpenEPubButtonClick(object sender, RoutedEventArgs e)
+        public async void AddButtonClick(object sender, RoutedEventArgs e)
         {
-            if (await Controllers.ImportController.ImportEPubAsync())
+            if (SelectedPivotIndex == 0)
             {
-                _importedEPubs.Clear();
-                _importedEPubs.AddRange(await Controllers.ImportController.GetImportedEPubsAsync());
+                if (await ImportController.ImportEPubAsync())
+                    await ViewModelController.RefreshLibrary();
             }
+
+            else
+                ViewModel.Collections.Add(new Collection { Id = Guid.NewGuid(), Name = "New Collection" });
         }
 
         public async void ChangeCoverMenuItemClick(object sender, RoutedEventArgs e) =>
-            await Controllers.ImportController.ChangeEPubCoverAsync((sender as MenuFlyoutItem).DataContext as ePub);
+            await ImportController.ChangeEPubCoverAsync((sender as MenuFlyoutItem).DataContext as ePub);
     }
 }
 

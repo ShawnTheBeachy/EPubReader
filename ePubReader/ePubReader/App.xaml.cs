@@ -1,12 +1,8 @@
-using System;
-using Windows.UI.Xaml;
 using System.Threading.Tasks;
 using ePubReader.Services.SettingsServices;
 using Windows.ApplicationModel.Activation;
-using Template10.Mvvm;
-using Template10.Common;
-using System.Linq;
 using Windows.UI.Xaml.Data;
+using ePubReader.Controllers;
 
 namespace ePubReader
 {
@@ -38,7 +34,8 @@ namespace ePubReader
 
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
-            // long-running startup tasks go here
+            await ViewModelController.RefreshLibrary();
+            await ViewModelController.RefreshCollections();
 
             NavigationService.Navigate(typeof(Views.MainPage));
             await Task.CompletedTask;

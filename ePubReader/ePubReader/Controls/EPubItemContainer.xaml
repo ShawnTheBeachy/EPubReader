@@ -14,11 +14,13 @@
     <Interactivity:Interaction.Behaviors>
         <controls:FluidPointerDragBehavior DragButton="MouseLeftButton" />
     </Interactivity:Interaction.Behaviors>
-    <Grid Height="204"
-          Width="132"
+    <Grid Height="216"
+          Width="144"
           Background="Transparent"
           RightTapped="ePubItemRightTapped">
         <Image Source="{Binding CoverStream, Converter={StaticResource RasToImageSourceConverter}, Mode=OneWay}"
-               Stretch="UniformToFill" />
+               Stretch="UniformToFill" 
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
     </Grid>
 </UserControl>
