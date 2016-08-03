@@ -14,9 +14,9 @@
     <Interactivity:Interaction.Behaviors>
         <controls:FluidPointerDragBehavior DragButton="MouseLeftButton" />
     </Interactivity:Interaction.Behaviors>
-    <Grid Height="216"
-          Width="144"
-          Background="Transparent"
+    <Grid Background="Transparent"
+          Height="204"
+          Width="132"
           RightTapped="ePubItemRightTapped">
         <Image Source="{Binding CoverStream, Converter={StaticResource RasToImageSourceConverter}, Mode=OneWay}"
                Stretch="UniformToFill" 

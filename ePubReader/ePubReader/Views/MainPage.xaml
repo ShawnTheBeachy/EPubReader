@@ -65,7 +65,8 @@
             <PivotItem Header="COLLECTIONS">
                 <ScrollViewer VerticalScrollMode="Enabled">
                     <localControls:CollectionItemsControl Grid.Row="1"
-                                                          Margin="12"
+                                                          Height="216"
+                                                          Width="144"
                                                           ItemsSource="{Binding Collections,
                                                                                 Mode=TwoWay}">
                         <localControls:CollectionItemsControl.ItemsPanel>
