@@ -158,7 +158,8 @@ namespace ePubReader.Controllers
                     {
                         Id = itemId,
                         Href = itemHref,
-                        MediaType = itemMediaType
+                        MediaType = itemMediaType,
+                        Path = $"{opfFile.GetFolderPath()}/{itemHref}"
                     };
 
                     newEPub.Manifest.Add(newManifestItem);

@@ -1,5 +1,8 @@
-﻿namespace ePubReader.Models
+﻿using Newtonsoft.Json;
+
+namespace ePubReader.Models
 {
+    [JsonObject(MemberSerialization.OptOut)]
     public class SpineItem : BaseNotify
     {
         private string _idRef;

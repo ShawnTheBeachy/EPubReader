@@ -24,6 +24,7 @@ namespace ePubReader.Controls
         {
             this.InitializeComponent();
         }
+
         private void ePubItemRightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             FrameworkElement ancestor = sender as FrameworkElement;
@@ -33,6 +34,22 @@ namespace ePubReader.Controls
                 if (ancestor is MainPage)
                 {
                     (ancestor as MainPage).ePubItemRightTapped(sender, e);
+                    break;
+                }
+
+                ancestor = VisualTreeHelper.GetParent(ancestor) as FrameworkElement;
+            }
+        }
+
+        private void ePubItemTapped(object sender, TappedRoutedEventArgs e)
+        {
+            FrameworkElement ancestor = sender as FrameworkElement;
+
+            while (ancestor != null)
+            {
+                if (ancestor is MainPage)
+                {
+                    (ancestor as MainPage).ePubItemTapped(sender, e);
                     break;
                 }
 

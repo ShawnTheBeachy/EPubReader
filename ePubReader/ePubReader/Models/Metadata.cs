@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ePubReader.Models
 {
     //From http://dublincore.org/documents/2012/06/14/dcmi-terms/?v=elements
+    [JsonObject(MemberSerialization.OptOut)]
     public class Metadata : BaseNotify
     {
         /// <summary>

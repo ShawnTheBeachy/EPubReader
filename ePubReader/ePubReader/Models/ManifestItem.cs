@@ -1,5 +1,8 @@
-﻿namespace ePubReader.Models
+﻿using Newtonsoft.Json;
+
+namespace ePubReader.Models
 {
+    [JsonObject(MemberSerialization.OptOut)]
     public class ManifestItem : BaseNotify
     {
         private string _id;
@@ -21,6 +24,13 @@
         {
             get { return _mediaType; }
             set { _mediaType = value; RaisePropertyChanged("MediaType"); }
+        }
+
+        private string _path;
+        public string Path
+        {
+            get { return _path; }
+            set { _path = value; RaisePropertyChanged("Path"); }
         }
     }
 }

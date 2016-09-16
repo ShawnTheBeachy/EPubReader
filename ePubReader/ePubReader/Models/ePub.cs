@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using Windows.Storage.Streams;
 
 namespace ePubReader.Models
 {
+    [JsonObject(MemberSerialization.OptOut)]
     public class ePub : BaseNotify
     {
         private string _id;

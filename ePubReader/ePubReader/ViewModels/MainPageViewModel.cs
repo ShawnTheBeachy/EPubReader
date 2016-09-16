@@ -9,6 +9,7 @@ using ePubReader.Models;
 using Windows.UI.Xaml.Controls;
 using ePubReader.Controllers;
 using System;
+using ePubReader.Views;
 
 namespace ePubReader.ViewModels
 {
@@ -56,6 +57,13 @@ namespace ePubReader.ViewModels
 
         public async void ChangeCoverMenuItemClick(object sender, RoutedEventArgs e) =>
             await ImportController.ChangeEPubCoverAsync((sender as MenuFlyoutItem).DataContext as ePub);
+
+        public void ePubItemClick(object sender, RoutedEventArgs e)
+        {
+            var ePub = (sender as Grid).DataContext as ePub;
+            SessionState.Add("reading", ePub);
+            NavigationService.Navigate(typeof(ReadingPage));
+        }
     }
 }
 

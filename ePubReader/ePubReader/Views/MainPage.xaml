@@ -14,7 +14,8 @@
       xmlns:models="using:ePubReader.Models"
       xmlns:vm="using:ePubReader.ViewModels"
       NavigationCacheMode="Enabled"
-      mc:Ignorable="d">
+      mc:Ignorable="d"
+      x:Name="ThisPage">
 
     <Page.Resources>
         <converters:RasToImageSourceConverter x:Key="RasToImageSourceConverter" />

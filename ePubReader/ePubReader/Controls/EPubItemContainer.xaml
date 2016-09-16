@@ -17,7 +17,8 @@
     <Grid Background="Transparent"
           Height="204"
           Width="132"
-          RightTapped="ePubItemRightTapped">
+          RightTapped="ePubItemRightTapped"
+          Tapped="ePubItemTapped">
         <Image Source="{Binding CoverStream, Converter={StaticResource RasToImageSourceConverter}, Mode=OneWay}"
                Stretch="UniformToFill" 
                HorizontalAlignment="Center"

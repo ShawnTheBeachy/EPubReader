@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ePubReader.Models
 {
+    [JsonObject(MemberSerialization.OptOut)]
     public class Spine : BaseNotify
     {
         private string _tableOfContents;
